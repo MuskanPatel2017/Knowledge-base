@@ -5,12 +5,17 @@ import Link from 'next/link';
 export default function ArticleCard({ article }) {
   const { Title, Description, Content, Image, Slug } = article;
 
-  const imageUrl = Image?.url ? `http://localhost:1337${Image.url}` : null;
+  
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const imageUrl = Image?.url ? `${API_URL}${Image.url}` : null;
+
 
   // Flatten the content blocks into a plain string for preview
   const previewText = Content?.map((block) =>
     block.children.map((child) => child.text).join('')
   ).join(' ');
+
+
 
   return (
     <div className={styles.card}>
