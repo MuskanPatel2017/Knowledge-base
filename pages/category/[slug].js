@@ -3,15 +3,25 @@ import { getArticles, getCategoryBySlug, getCategories } from '../../lib/api';
 import ArticleCard from '../../components/ArticleCard';
 import Link from 'next/link';
 
+
 export async function getStaticPaths() {
   const categories = await getCategories();
+
+  console.log("Fetched categories:", categories);
+
+  //  Filter out invalid slugs
+  const validCategories = categories.filter(
+    (cat) => typeof cat.slug === 'string' && cat.slug.trim() !== ''
+  );
+
   return {
-    paths: categories.map((cat) => ({
+    paths: validCategories.map((cat) => ({
       params: { slug: cat.slug },
     })),
-    fallback: 'blocking', // ISR
+    fallback: 'blocking',
   };
 }
+
 
 export async function getStaticProps({ params }) {
   const category = await getCategoryBySlug(params.slug);
