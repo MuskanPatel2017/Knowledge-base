@@ -43,6 +43,10 @@ jspm_packages/
 
 package-lock.json
 
+# .gitignore
+.env.local
+
+
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
