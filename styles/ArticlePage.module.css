@@ -1,0 +1,18 @@
+/* styles/ArticlePage.module.css */
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+ 
+}
+
+.backLink {
+  color: #0070f3;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
