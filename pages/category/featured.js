@@ -19,6 +19,7 @@ export async function getStaticProps() {
   };
 }
 
+//This is the React component rendered for `/category/featured` route
 export default function FeaturedCategoryPage({ category, articles }) {
   return (
     <main style={{ padding: '2rem' }}>

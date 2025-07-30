@@ -1,10 +1,15 @@
 
-// pages/articles/[slug].js
-import Head from 'next/head';
-import Image from 'next/image';
-import { getArticles, getArticleBySlug } from '../../lib/api';
-import Link from 'next/link';
+//  Next.js components for SEO and image optimization
+import Head from 'next/head';         
+import Image from 'next/image';       // For optimized image rendering
+import Link from 'next/link';         // For client-side navigation
 
+// Importing data fetching functions from Strapi
+import { getArticles, getArticleBySlug } from '../../lib/api';
+
+
+//Static Path Generation (for SSG)
+// This function runs at build time to tell Next.js which article pages to generate
 export async function getStaticPaths() {
   const articles = await getArticles();
 
@@ -16,6 +21,8 @@ export async function getStaticPaths() {
   };
 }
 
+//Static Prop Fetching (for individual article page)
+// Runs at build time (or revalidates periodically) to fetch data for a specific article based on slug
 export async function getStaticProps({ params }) {
   console.log('Fetching article for slug:', params.slug);
   const article = await getArticleBySlug(params.slug);
@@ -28,20 +35,21 @@ export async function getStaticProps({ params }) {
   };
 }
 
+//Main Article Detail Component 
 export default function ArticleDetail({ article }) {
   if (!article) {
     return <p>Loading...</p>; // fallback rendering
   }
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL; 
   const { Title, Description, Content, Image: coverImage } = article;
-  const imageUrl = coverImage?.url
-    ? `http://localhost:1337${coverImage.url}`
-    : null;
-console.log('slug',Title, Description);
-console.log("articleDetail:", article);
+  const imageUrl = coverImage?.url ? `${API_URL}${coverImage.url}` : null;
+
+  console.log('slug', Title, Description);
+  console.log("articleDetail:", article);
 
   return (
-    <main style={{ padding: '2rem' , height: '100vh', width: '100vw'}}>
+    <main style={{ padding: '2rem', height: '100vh', width: '100vw' }}>
       <Head>
         <title>{`${Title} – Knowledge Base`}</title>
         <meta name="description" content={Description || ''} />
@@ -49,6 +57,7 @@ console.log("articleDetail:", article);
 
       <h1>{Title}</h1>
       <p>{Description}</p>
+
       {imageUrl && (
         <Image
           src={imageUrl}
@@ -65,8 +74,8 @@ console.log("articleDetail:", article);
           </p>
         ))}
       </article>
-    
-       <Link href="/" >← Back to Home</Link>
+
+      <Link href="/">← Back to Home</Link>
     </main>
   );
 }

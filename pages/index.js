@@ -23,7 +23,7 @@ export default function Home({ categories }) {
       </Head>
 
       <section className={styles.hero}>
-        <h1>Welcome to the Knowledge Base</h1>
+        <h1>Welcome to the Knowledge Base Home Screen</h1>
         <p>Explore technical articles and resources powered by Strapi + Next.js.</p>
       </section>
 

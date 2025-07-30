@@ -5,7 +5,10 @@ import ArticleCard from '../../components/ArticleCard';
 import Link from 'next/link';
 import styles from '../../styles/ArticlePage.module.css';
 
- // SSG with Incremental Static Regeneration
+
+
+//Server-side data fetching using Static Site Generation (SSG) + ISR (Incremental Static Regeneration).
+//This runs at build time and revalidates every 60 seconds to keep content fresh.
 export async function getStaticProps() {
   const articles = await getArticles();
   return {
@@ -18,24 +21,24 @@ export default function ArticlesPage({ articles }) {
   const [query, setQuery] = useState('');
   const [inputValue, setInputValue] = useState('');
 
+  // Debouncing the input: updates `query` 300ms after user stops typing
   useMemo(() => {
     const timeout = setTimeout(() => setQuery(inputValue), 300);
     return () => clearTimeout(timeout);
   }, [inputValue]);
- // Search filter (client-side)
-  
-const filteredArticles = useMemo(() => {
-  const q = query.toLowerCase();
 
-  return articles.filter((a) =>
-    (a.Title?.toLowerCase().includes(q)) ||
-    (a.Description?.toLowerCase().includes(q))
-  );
-}, [query, articles]);
 
-console.log('Articles:', articles);
+  // Search filter (client-side)
+  const filteredArticles = useMemo(() => {
+    const q = query.toLowerCase();
 
-// return articles.map((article) => ( ... )) just to verify
+    return articles.filter((a) =>
+      (a.Title?.toLowerCase().includes(q)) ||
+      (a.Description?.toLowerCase().includes(q))
+    );
+  }, [query, articles]);
+
+  console.log('Articles:', articles);
 
   return (
     <main style={{ padding: '2rem' }}>
@@ -66,10 +69,10 @@ console.log('Articles:', articles);
         <p>No articles found.</p>
       ) : (
         filteredArticles.map((article) => (
-          <ArticleCard  key={article.id} article={article} />
+          <ArticleCard key={article.id} article={article} />
         ))
       )}
-      
+
     </main>
   );
 }
