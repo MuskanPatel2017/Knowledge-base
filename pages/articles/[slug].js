@@ -45,7 +45,8 @@ export default function ArticleDetail({ article }) {
   const { Title, Description, Content, Image: coverImage } = article;
   // const imageUrl = coverImage?.url ? `${API_URL}${coverImage.url}` : null;
 
-  const imageUrl = Image?.url || null;
+   const imageUrl = coverImage?.url || null;
+  console.log('Image URL 2:', imageUrl);
 
   console.log('slug', Title, Description);
   console.log("articleDetail:", article);
