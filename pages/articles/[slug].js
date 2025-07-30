@@ -52,7 +52,7 @@ export default function ArticleDetail({ article }) {
   console.log("articleDetail:", article);
 
   return (
-    <main style={{ padding: '2rem', height: '100vh', width: '100vw' }}>
+    <main style={{ padding: '2rem', minHeight: '100vh', width: '100vw' }}>
       <Head>
         <title>{`${Title} – Knowledge Base`}</title>
         <meta name="description" content={Description || ''} />
