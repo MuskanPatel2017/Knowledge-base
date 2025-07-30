@@ -43,7 +43,9 @@ export default function ArticleDetail({ article }) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL; 
   const { Title, Description, Content, Image: coverImage } = article;
-  const imageUrl = coverImage?.url ? `${API_URL}${coverImage.url}` : null;
+  // const imageUrl = coverImage?.url ? `${API_URL}${coverImage.url}` : null;
+
+  const imageUrl = Image?.url || null;
 
   console.log('slug', Title, Description);
   console.log("articleDetail:", article);
