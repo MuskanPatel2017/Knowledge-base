@@ -72,7 +72,7 @@ export default function ArticleDetail({ article }) {
 
       <article>
         {Content?.map((block, idx) => (
-          <p key={idx}>
+          <p key={idx} style={{fontSize: "1rem"}}>
             {block.children?.map((child) => child.text).join('')}
           </p>
         ))}
