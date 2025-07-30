@@ -3,7 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'knowledge-base-strapi-backend.onrender.com'],
+    domains: ['localhost', 'knowledge-base-strapi-backend.onrender.com',  'res.cloudinary.com' ],
   },
 };
 
